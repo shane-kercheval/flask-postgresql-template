@@ -1,0 +1,45 @@
+NOTE: development was done on OS X, there may be different installations/etc. on other systems
+
+- download source, put in whatever git repository you set up
+
+- install http://postgresapp.com (OS X)
+- run "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
+- start postgresapp to make sure it works and the server starts
+- open psql from app
+- in psql terminal, create the database you want to use in the site, config defaults the db url to example_site. USE:
+        CREATE DATABASE example_site;
+        \connect example_site;
+    - defaulted DATABASE_URL os so that if none exists, it returns the above. Means it might work locally but fail when pushed to Heroku if config variable isn't set
+- start venv ('source path-to-ven/bin/activate') (using os x terminal, not psql)
+- update venv to requirements using 'pip install -r requirements.txt'
+    - any time you update venv via pip, save to requirements using 'pip freeze > requirements.txt'
+
+- run tests locally using 'python -m unittest tests/test_app.py' in terminal
+- add data to database using 'python initialize_db.py' in terminal
+- confirm data is in database using 'select * from users;' in psql
+- run locally using 'python app.py'
+- in browser, go to 'http://127.0.0.1:5000/' ... you should see the site
+
+- commit/push to git repository
+
+
+- create heroku app
+- download Heroku Toolbelt: https://devcenter.heroku.com/articles/getting-started-with-python#set-up
+-
+
+
+
+
+
+
+
+need Heroku Toolbelt: https://devcenter.heroku.com/articles/getting-started-with-python#set-up
+    Heroku recognizes an app as a Python app by the existence of a requirements.txt file in the root directory. For your own apps, you can create one by running pip freeze.
+you can use GitHub and Heroku at the same time, added the remote from the setup tutorial above doesn't overwrite git, it adds another
+
+
+
+
+Heroku automatically adds DATABASE_URL to the config settings which makes it available to os.evnironment
+
+need to add APP_SETTINGS=config.ProductionConfig to config in Heroku

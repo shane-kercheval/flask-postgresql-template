@@ -1,0 +1,29 @@
+{% import "head.html" as head %}
+
+<!DOCTYPE html>
+<html>
+    {{ head.render(title, description, keywords, author, image_name, image_width, image_height) }}
+    <body>
+        {% include "google-tag-manager.html" %}
+        {% include "header.html" %}
+
+        <div class="page-content">
+            {% block body %}
+            {% endblock %}
+        </div>
+
+        {% include "footer.html" %}
+        {% include "scripts.html" %}
+    </body>
+</html>
+
+
+{# ############OVERRIDE - here are the variables that child files can override: #}
+{# {% set title = 'title' %} #}
+{# {% set description = 'description' %} #}
+{# {% set keywords = 'keywords' %} #}
+{# {% set author = 'author' %} #}
+{# {% set image_name = 'image_name' %} #}
+{# {% set image_width = 'image_width' %} #}
+{# {% set image_height = 'image_height' %} #}
+{# ############ #}

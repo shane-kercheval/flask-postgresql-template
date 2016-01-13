@@ -1,0 +1,7 @@
+{% extends 'default.html' %}
+
+{# if I want to override, e.g., the title, use: {% set title = 'index' %} #}
+
+{% block body %}
+    <h1>Test!3! {{ config.SITE_NAME }}</h1>
+{% endblock %}
