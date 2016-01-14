@@ -39,13 +39,4 @@ NOTE: development was done on OS X, there may be different installations/etc. on
         - Heroku automatically adds DATABASE_URL to the config settings which makes it available to os.evnironment
 - add APP_SETTINGS=config.ProductionConfig to config in Heroku
 
-
-
-
-need Heroku Toolbelt: https://devcenter.heroku.com/articles/getting-started-with-python#set-up
-
-
-
-
-Heroku automatically adds DATABASE_URL to the config settings which makes it available to os.evnironment
-
+- optionally connect heroku to github to enable automatic deployments
