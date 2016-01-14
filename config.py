@@ -21,7 +21,7 @@ class SiteConfig:
 class ProductionConfig(Config, SiteConfig):
     DEBUG = False
     #uncomment to include GTM script in html pages
-    #GOOGLE_TAG_MANAGER_ID = "GTM-XXXXXX"
+    GOOGLE_TAG_MANAGER_ID = "GTM-XXXXXX"
 
 
 class DevelopmentConfig(Config, SiteConfig):

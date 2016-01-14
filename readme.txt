@@ -1,6 +1,9 @@
 NOTE: development was done on OS X, there may be different installations/etc. on other systems
 
 - download source, put in whatever git repository you set up
+    - you may need to change
+        - runtime.txt
+        - Procfile.txt
 
 - install http://postgresapp.com (OS X)
 - run "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
@@ -23,23 +26,26 @@ NOTE: development was done on OS X, there may be different installations/etc. on
 - commit/push to git repository
 
 
+- download/install Heroku Toolbelt: https://devcenter.heroku.com/articles/getting-started-with-python#set-up
+- log in to Heroku via toolbelt/terminal: 'heroku login'
 - create heroku app
-- download Heroku Toolbelt: https://devcenter.heroku.com/articles/getting-started-with-python#set-up
--
-
-
-
+    - terminal cd path-to-project
+    - create app: 'heroku create [app name]' e.g. 'heroku create flask-postgresql-template'
+        Heroku recognizes an app as a Python app by the existence of a requirements.txt file in the root directory. For your own apps, you can create one by running pip freeze.
+        you can use GitHub and Heroku at the same time, added the remote from the setup tutorial above doesn't overwrite git, it adds another
+- deploy code: 'git push heroku master'
+- ensure it worked: 'heroku open'
+    - this should have automatically added postgres add-in to your app, but verify on heroku dashboard
+        - Heroku automatically adds DATABASE_URL to the config settings which makes it available to os.evnironment
+- add APP_SETTINGS=config.ProductionConfig to config in Heroku
 
 
 
 
 need Heroku Toolbelt: https://devcenter.heroku.com/articles/getting-started-with-python#set-up
-    Heroku recognizes an app as a Python app by the existence of a requirements.txt file in the root directory. For your own apps, you can create one by running pip freeze.
-you can use GitHub and Heroku at the same time, added the remote from the setup tutorial above doesn't overwrite git, it adds another
 
 
 
 
 Heroku automatically adds DATABASE_URL to the config settings which makes it available to os.evnironment
 
-need to add APP_SETTINGS=config.ProductionConfig to config in Heroku
