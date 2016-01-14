@@ -16,6 +16,8 @@ NOTE: development was done on OS X, there may be different installations/etc. on
 - start venv ('source path-to-ven/bin/activate') (using os x terminal, not psql)
 - update venv to requirements using 'pip install -r requirements.txt'
     - any time you update venv via pip, save to requirements using 'pip freeze > requirements.txt'
+    - if you get "Error: pg_config executable not found."
+        - run this in terminal and retry: "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
 
 - run tests locally using 'python -m unittest tests/test_app.py' in terminal
 - add data to database using 'python initialize_db.py' in terminal
@@ -38,5 +40,12 @@ NOTE: development was done on OS X, there may be different installations/etc. on
     - this should have automatically added postgres add-in to your app, but verify on heroku dashboard
         - Heroku automatically adds DATABASE_URL to the config settings which makes it available to os.evnironment
 - add APP_SETTINGS=config.ProductionConfig to config in Heroku
+- try running Heroku locally with "heroku local"
 
 - optionally connect heroku to github to enable automatic deployments
+
+- to run a different computer, follow same steps, then enable the deployment using "git remote add heroku [GIT URL]", the git URL will be in the settings tab of the app in Heroku ("git@heroku.com:app.git")
+    - e.g. "git remote add heroku git@heroku.com:flask-postgresql-template.git"
+    - then do:
+        git push heroku master
+        heroku open
