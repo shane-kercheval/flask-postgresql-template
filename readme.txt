@@ -44,8 +44,8 @@ NOTE: development was done on OS X, there may be different installations/etc. on
 
 - optionally connect heroku to github to enable automatic deployments
 
-- to run a different computer, follow same steps, then enable the deployment using "git remote add heroku [GIT URL]", the git URL will be in the settings tab of the app in Heroku ("git@heroku.com:app.git")
-    - e.g. "git remote add heroku git@heroku.com:flask-postgresql-template.git"
+- to run a different computer, follow same steps, then enable the deployment using "heroku git:remote -a [heroku app name]"
+    - e.g. "heroku git:remote -a flask-postgresql-template"
     - then do:
         git push heroku master
         heroku open
