@@ -52,6 +52,8 @@ NOTE: development was done on OS X, there may be different installations/etc. on
         heroku open
 
 =====MIGRATIONS============
+- view "heroku pg:psql --app flask-postgresql-template DATABASE"
+
 - Alembic automatically creates/tracks database migration records from the changes in the SQLAchemy models, and allows us to upgrade/downgrade to specific versions.
 - Flask-Migrate is an extension created for SQLAlchemy that works iwht Flask Script / Alembic; MigrateCommand added to manage.py
 - "python manage.py db" - gives command options

@@ -18,21 +18,27 @@ db = SQLAlchemy(app)
 def before_request():
     """Connect to the database before each request."""
     # g = global object Flask uses for passing information to views/modules.
-    # g.db = database
-    # g.db.connect()
+    #g.db = db
+    #g.db.connect()
     pass
 
 
 @app.after_request
 def after_request(response):
     """Close the database connection after each request."""
-    # g.db.close()
+    #g.db.close()
     return response
 
 
 @app.route('/')
 def home(name="default", test="default"):
-    return render_template("index.html")
+    return render_template('index.html')
+
+
+@app.errorhandler(404)
+def pageNotFound(error):
+    return render_template('page_not_found.html'), 404
+
 
 if __name__ == '__main__':
     print("DATABASE_URL: "+app.config['SQLALCHEMY_DATABASE_URI'])
