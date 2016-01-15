@@ -67,4 +67,5 @@ NOTE: development was done on OS X, there may be different installations/etc. on
 - push db provisions to heroku: "heroku run python manage.py migrate"
 "heroku run python manage.py db upgrade --app [APP]"
 "heroku run python manage.py db upgrade --app flask-postgresql-template"
+    - MAKE SURE ALL MIGRATIONS ARE PUSHED TO REMOTE BEFORE RUNNING, THIS RUNS OFF OF REMOTE SOURCES
 ===========================
