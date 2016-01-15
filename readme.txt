@@ -58,6 +58,7 @@ NOTE: development was done on OS X, there may be different installations/etc. on
 - "python manage.py db init" - start tracking changes
     - creates /migrations/ folder
 - "python manage.py db migrate -m "initial migration"" - initial migration; causes Alembic to scan SQLAlchemy all table/column changes
+    - make sure to do this with an empty local database, if there are existing tables, they won't be added to the migration
 - to apply migration to another database, run
     - "python manage.py db upgrade"
 - view history: "python manage.py db history"
