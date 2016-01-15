@@ -61,4 +61,9 @@ NOTE: development was done on OS X, there may be different installations/etc. on
 - to apply migration to another database, run
     - "python manage.py db upgrade"
 - view history: "python manage.py db history"
+
+
+- push db provisions to heroku: "heroku run python manage.py migrate"
+"heroku run python manage.py db upgrade --app [APP]"
+"heroku run python manage.py db upgrade --app flask-postgresql-template"
 ===========================

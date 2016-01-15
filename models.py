@@ -6,6 +6,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(), unique=True)
     password = db.Column(db.String())
+    temp = db.Column(db.String())
 
     def get_user_by_email(email):
             return User.query.filter_by(email=email).all()
