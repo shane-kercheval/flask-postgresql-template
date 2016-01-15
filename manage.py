@@ -3,8 +3,8 @@ from flask.ext.script import Manager, Server
 from flask.ext.migrate import Migrate, MigrateCommand
 from config import DevelopmentConfig
 from models import User
-
 from app import app, db
+
 app.config.from_object(os.environ.get('APP_SETTINGS', DevelopmentConfig))
 
 migrate = Migrate(app, db)

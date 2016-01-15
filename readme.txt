@@ -1,3 +1,4 @@
+=====SETUP=================
 NOTE: development was done on OS X, there may be different installations/etc. on other systems
 
 - download source, put in whatever git repository you set up
@@ -49,3 +50,15 @@ NOTE: development was done on OS X, there may be different installations/etc. on
     - then do:
         git push heroku master
         heroku open
+
+=====MIGRATIONS============
+- Alembic automatically creates/tracks database migration records from the changes in the SQLAchemy models, and allows us to upgrade/downgrade to specific versions.
+- Flask-Migrate is an extension created for SQLAlchemy that works iwht Flask Script / Alembic; MigrateCommand added to manage.py
+- "python manage.py db" - gives command options
+- "python manage.py db init" - start tracking changes
+    - creates /migrations/ folder
+- "python manage.py db migrate -m "initial migration"" - initial migration; causes Alembic to scan SQLAlchemy and finall all table/column changes
+- to apply migration to another database, run
+    - "python manage.py db upgrade"
+- view history: "python manage.py db history"
+===========================
