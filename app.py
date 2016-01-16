@@ -3,19 +3,17 @@ from flask import Flask, request, g, flash
 from flask import render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.bcrypt import Bcrypt
+from flask.ext.login import LoginManager
 from config import DevelopmentConfig
-from forms import LoginForm
+import forms
 
-
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object(os.environ.get('APP_SETTINGS', DevelopmentConfig))
-    return app
-
-app = create_app()
+app = Flask(__name__)
+app.config.from_object(os.environ.get('APP_SETTINGS', DevelopmentConfig))
 app.secret_key = app.config['SECRET_KEY']
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 
 @app.before_request
@@ -41,7 +39,7 @@ def home(name="default", test="default"):
 
 @app.route('/login')
 def login(name="default", test="default"):
-    form = LoginForm
+    form = forms.LoginForm
     if form.validate_on_submit():
         flash("login valid")
     else:

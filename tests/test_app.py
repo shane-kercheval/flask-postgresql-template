@@ -4,8 +4,10 @@
 import pep8
 import unittest
 import logging
+from sqlalchemy.exc import IntegrityError
 from models import User
-from app import db
+from app import db, bcrypt
+
 
 class AppTest(unittest.TestCase):
 
@@ -33,8 +35,6 @@ class AppTest(unittest.TestCase):
         user = User(email=email, password=password)
         add_to_database(user)
 
-        logging.info(user)
-        #make sure user exists
         assert user in db.session
 
         assert len(User.query.filter_by(email=email).all()) == 1
@@ -48,6 +48,19 @@ class AppTest(unittest.TestCase):
         user_from_db2 = User.get_user_by_email(email)
         assert user_from_db2.email == email
         assert user_from_db2.check_password("newpassword")
+
+    def test_user_already_exists(self):
+        add_to_database(User(email='email', password='password'))
+        l = lambda: add_to_database(User(email='email', password='another'))
+        self.assertRaises(IntegrityError, l)
+
+    def test_user_incorrect_password(self):
+        email = 'email'
+        password = 'password'
+        add_to_database(User(email=email, password=password))
+        user = User.get_user_by_email(email)
+        assert user.password != password
+        assert bcrypt.check_password_hash(user.password, password)
 
 
 def add_to_database(object):
