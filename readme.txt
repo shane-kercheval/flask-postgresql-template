@@ -71,3 +71,9 @@ NOTE: development was done on OS X, there may be different installations/etc. on
 "heroku run python manage.py db upgrade --app flask-postgresql-template"
     - MAKE SURE ALL MIGRATIONS ARE PUSHED TO REMOTE BEFORE RUNNING, THIS RUNS OFF OF REMOTE SOURCES
 ===========================
+- need to store passwords as LargeBinary. Seems unique to Postgres
+-
+=====AUTHENTICATION========
+- here are the classes we would want to implement http://flask-login.readthedocs.org/en/latest/#your-user-class
+    - but flask-login gives us UserMixin which does this for us
+-

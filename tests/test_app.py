@@ -37,10 +37,17 @@ class AppTest(unittest.TestCase):
         #make sure user exists
         assert user in db.session
 
-        users = User.get_user_by_email(email)
-        assert len(users) == 1
-        assert users[0].email == email
-        assert users[0].password == password
+        assert len(User.query.filter_by(email=email).all()) == 1
+        user_from_db = User.get_user_by_email(email)
+        assert user_from_db.email == email
+        assert user_from_db.check_password(password)
+        user_from_db.set_password("newpassword")
+        db.session.commit()
+
+        assert len(User.query.filter_by(email=email).all()) == 1
+        user_from_db2 = User.get_user_by_email(email)
+        assert user_from_db2.email == email
+        assert user_from_db2.check_password("newpassword")
 
 
 def add_to_database(object):

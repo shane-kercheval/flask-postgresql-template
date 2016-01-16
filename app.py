@@ -1,8 +1,10 @@
 import os
-from flask import Flask, request, g
+from flask import Flask, request, g, flash
 from flask import render_template
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.bcrypt import Bcrypt
 from config import DevelopmentConfig
+from forms import LoginForm
 
 
 def create_app():
@@ -11,22 +13,24 @@ def create_app():
     return app
 
 app = create_app()
+app.secret_key = app.config['SECRET_KEY']
 db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
 
 @app.before_request
 def before_request():
     """Connect to the database before each request."""
     # g = global object Flask uses for passing information to views/modules.
-    #g.db = db
-    #g.db.connect()
+    # g.db = db
+    # g.db.connect()
     pass
 
 
 @app.after_request
 def after_request(response):
     """Close the database connection after each request."""
-    #g.db.close()
+    # g.db.close()
     return response
 
 
@@ -35,8 +39,19 @@ def home(name="default", test="default"):
     return render_template('index.html')
 
 
+@app.route('/login')
+def login(name="default", test="default"):
+    form = LoginForm
+    if form.validate_on_submit():
+        flash("login valid")
+    else:
+        flash("login not valid")
+
+    return render_template('login.html', form=form)
+
+
 @app.errorhandler(404)
-def pageNotFound(error):
+def page_not_found(error):
     return render_template('page_not_found.html'), 404
 
 
