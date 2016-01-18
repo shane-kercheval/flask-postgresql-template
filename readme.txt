@@ -65,6 +65,7 @@ NOTE: development was done on OS X, there may be different installations/etc. on
     - "python manage.py db upgrade"
 - view history: "python manage.py db history"
 
+- when switching computers, blow away the database (drop all tables) and do 'upgrade' and then 'migrate'
 
 - push db provisions to heroku: "heroku run python manage.py migrate"
 "heroku run python manage.py db upgrade --app [APP]"
