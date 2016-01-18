@@ -5,7 +5,8 @@ import pep8
 import unittest
 import logging
 from models import User
-from app import db
+from app_factory import db
+
 
 class AppTest(unittest.TestCase):
 

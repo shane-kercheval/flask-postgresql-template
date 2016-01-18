@@ -1,5 +1,5 @@
 from models import User
-from app import db
+from app_factory import db
 
 
 def add_to_database(object):

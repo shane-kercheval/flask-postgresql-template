@@ -1,5 +1,5 @@
 from flask.ext.login import UserMixin
-from app import db, bcrypt
+from app_factory import db, bcrypt
 
 
 class User(UserMixin, db.Model):

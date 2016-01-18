@@ -5,7 +5,7 @@ import models
 
 
 class LoginForm(Form):
-    email = StringField('Name',
+    email = StringField('Email',
                         validators=[DataRequired(), Email()])
     password = PasswordField('Password',
                         validators=[DataRequired(), Length(min=8)])
