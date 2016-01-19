@@ -1,7 +1,7 @@
 from flask_wtf import Form
 from wtforms import StringField, PasswordField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
-import models
+from models import User
 
 
 class LoginForm(Form):
@@ -16,7 +16,7 @@ class LoginForm(Form):
         if not form_is_valid:
             return False
 
-        user = models.User.get_user_by_email(self.email)
+        user = User.get_user_by_email(self.email)
 
         if user is None:
             self.email.errors.append('Invalid email or password')
@@ -42,7 +42,7 @@ class RegistrationForm(Form):
         if not form_is_valid:
             return False
 
-        user = models.User.get_user_by_email(self.email)
+        user = User.get_user_by_email(self.email.data)
 
         if user is not None:
             self.email.errors.append('User with that name already exists')

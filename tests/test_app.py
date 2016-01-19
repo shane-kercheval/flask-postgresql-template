@@ -49,10 +49,14 @@ class AppTest(unittest.TestCase):
         assert user_from_db2.email == email
         assert user_from_db2.check_password("newpassword")
 
-    def test_user_already_exists(self):
+    def test_user_already_exists_raises_integrity_error(self):
         add_to_database(User(email='email', password='password'))
         l = lambda: add_to_database(User(email='email', password='another'))
         self.assertRaises(IntegrityError, l)
+
+    def test_user_doesnt_exist_returns_none(self):
+        user = User.get_user_by_email("bla")
+        assert user is None
 
     def test_user_incorrect_password(self):
         email = 'email'

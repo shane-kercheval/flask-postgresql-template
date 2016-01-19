@@ -10,7 +10,7 @@ class User(UserMixin, db.Model):
 
     @staticmethod
     def get_user_by_email(email):
-            return User.query.filter_by(email=email).first()
+        return User.query.filter_by(email=email).first()
 
     def __init__(self, email, password):
         self.email = email

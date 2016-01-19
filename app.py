@@ -1,7 +1,8 @@
-from flask import flash
+from flask import flash, request, redirect, url_for
 from flask import render_template
-from app_factory import app
-from forms import LoginForm
+from app_factory import app, db
+from models import User
+from forms import LoginForm, RegistrationForm
 
 
 @app.before_request
@@ -25,14 +26,25 @@ def home(name="default", test="default"):
     return render_template('index.html')
 
 
-@app.route('/login')
-def login(name="default", test="default"):
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm(request.form)
+    if form.validate_on_submit():
+        add_to_database(User(email=form.email.data,
+                             password=form.password.data))
+        flash('registered')
+        return redirect(url_for('home'))
+    return render_template('register.html', form=form)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
     form = LoginForm()
     if form.validate_on_submit():
         flash("login valid", category="success")
+        return redirect(url_for('login'))
     else:
         flash("login not valid", category="fail")
-
     return render_template('login.html', form=form)
 
 
@@ -40,6 +52,10 @@ def login(name="default", test="default"):
 def page_not_found(error):
     return render_template('page_not_found.html'), 404
 
+
+def add_to_database(object):
+    db.session.add(object)
+    db.session.commit()
 
 if __name__ == '__main__':
     print("DATABASE_URL: "+app.config['SQLALCHEMY_DATABASE_URI'])
