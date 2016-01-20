@@ -1,0 +1,5 @@
+{% for message in get_flashed_messages() %}
+    <div class=flash>{{ message }}</div>
+{% endfor %}
+<div class=flash>"test1"</div>
+<div class=flash>"test2"</div>
