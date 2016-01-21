@@ -78,4 +78,7 @@ NOTE: development was done on OS X, there may be different installations/etc. on
 =====AUTHENTICATION========
 - here are the classes we would want to implement http://flask-login.readthedocs.org/en/latest/#your-user-class
     - but flask-login gives us UserMixin which does this for us
--
+
+ADVANCED LOGGING
+- install 'papertrail' add-on
+- open the heroku dashboard - "heroku addons:open papertrail"

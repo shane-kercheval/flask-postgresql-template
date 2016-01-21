@@ -53,6 +53,11 @@ def page_not_found(error):
     return render_template('page_not_found.html'), 404
 
 
+@app.errorhandler(500)
+def page_not_found(error):
+    return render_template('internal_server_error.html', error=error), 500
+
+
 def add_to_database(object):
     db.session.add(object)
     db.session.commit()
