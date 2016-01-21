@@ -10,6 +10,7 @@ class SiteConfig:
     SITE_DESCRIPTION = "EXAMPLE SITE DESCRIPTION"
     SITE_KEYWORDS = "EXAMPLE KEYWORDS"
     SITE_OWNER = "SHANE KERCHEVAL"
+    SITE_EMAIL = "shane.kercheval@yahoo.com"
 
     SITE_IMAGE = "img/logo.png"
     SITE_IMAGE_WIDTH = 600

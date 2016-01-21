@@ -10,7 +10,8 @@ body {
 #header
 {
 	padding-top: 25px;
-	background-color: #F3F3F3;
+    background-image: radial-gradient(circle at center, #333333, #3A3A3A);
+	/* background-color: #3A3A3A; */
     padding: 20px 40px;
 	height: 80px;
 	box-sizing: border-box;
@@ -18,112 +19,156 @@ body {
 
 .flash {
     padding: 5px 10px;
-    text-align: center;
     height: 25px;
-    background: dodgerblue;
-    border: 1px solid black;
+    color: white;
+    background: #D74038;
+    border: 1px solid white;
     display: block;
     clear: both;
+}
+
+.align-left {
+    float: left;
+    width:33.33333%;
+    text-align:left;
+}
+.align-center {
+    float: left;
+    width:33.33333%;
+    text-align:center;
+}
+.align-right {
+    float: left;
+    width:33.33333%;
+    text-align:right;
+    cursor: pointer;
+}​
+.flash .align-right {
+    cursor: help;
 }
 
 .page-content {
     max-width: 95%;
-    margin: 0 auto;
+    margin: 20px auto;
     display: block;
     clear: both;
+    overflow: hidden;
 }
 
-
-#footer
-{
-    height: 200px;
-    margin-top: 200px;
-    background-color:blue;
+.page-content h1 {
+    font-weight: 300;
 }
-
 
 a {
 	text-decoration: none;
 }
+/*************
+** Forms
+**************/
+.form {
+    margin: 100px auto;
+    width: 400px;
+}
+.form h1 {
+  text-align: center;
+}
+.form label {
+  margin-bottom: 3px;
+}
+.form input {
+    display: block;
+    clear: right;
+    width: calc(100% - 11px);
+    height: 25px;
+    margin-bottom: 6px;
+    border-radius: 3px;
+    border: 1px solid #B3B3B3;
+    font-size: 1em;
+    padding-left: 8px;
+}
 
+.form input[type="text"], form input[type="password"]{
+
+}
+
+.form input[type="submit"] {
+  margin-top: 15px;
+  height: 40px;
+  width: 100%;
+  font-weight: 400;
+  background-color: #00B15A;
+  color: white;
+}
+/*************
+** Footer
+**************/
+#footer
+{
+    padding: 20px 0;
+    font-size: 0.9em;
+    background-color: #EDEDED;
+    text-align: center;
+    color: #828282;
+}
+#copyright {
+  text-align: center;
+  font-size: 0.8em;
+}
 /********HEADER*********/
-
-
-
-
-/* Logo */
-
 #header h1{
 	float: left;
 	line-height: 40px;
 	margin: 0;
+	font-weight: 500;
 }
-
-/* The navigation links */
-
-
-
 #header nav {
 	line-height: 40px;
 	float: left;
 	margin: 0 0 0 60px;
 	padding: 0;
 }
-
 #header nav a{
-    color: black;
+    color: white;
 	display: inline-block;
 	padding: 0 5px;
 	line-height: 1;
 }
-
 #header nav a:hover {
 	opacity: 1;
 }
-
 #header nav a.selected {
-	color: #608bd2;
+	color: dodgerblue;
 }
-
-/* Login/Sign up buttons */
-
 #header ul {
     color: black;
 	list-style: none;
 	line-height: 1;
 	float: right;
 }
-
 #header ul a{
-    color: black;
+    color: white;
 }
-
 #header h1 a{
-    color: black;
+    color: white;
 }
-
 #header ul li {
 	display: inline-block;
 	margin-left: 15px;
 	opacity:0.9;
+	color: white;
 }
-
 #header ul li:hover{
 	opacity: 1;
 }
-
-/* The sign up button */
-
 #header ul li:last-child a {
 	font-weight: bold;
 	padding: 10px 15px;
 	border-radius: 3px;
+	border-color: white;
+	border: 2px solid white;
 }
 
-/* Making the header responsive */
 
 @media all and (max-width: 600px) {
-    
-
 
 }

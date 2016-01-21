@@ -1,11 +1,14 @@
 {% extends 'default.html' %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('register') }}">
-    {{ form.csrf_token }}
-    {{ form.email.label }} {{ form.email(size=20) }}
-    {{ form.password.label }} {{ form.password(size=20) }}
-    {{ form.confirm.label }} {{ form.confirm(size=20) }}
-    <input type="submit" value="Go">
-</form>
+<div class="form">
+    <h1>Sign up for an account!</h1>
+    <form method="POST" action="{{ url_for('register') }}">
+        {{ form.csrf_token }}
+        {{ form.email.label }} {{ form.email() }}
+        {{ form.password.label }} {{ form.password() }}
+        {{ form.confirm.label }} {{ form.confirm() }}
+        <input type="submit" value="Sign Up">
+    </form>
+</div>
 {% endblock %}

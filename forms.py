@@ -16,7 +16,7 @@ class LoginForm(Form):
         if not form_is_valid:
             return False
 
-        user = User.get_user_by_email(self.email)
+        user = User.get_user_by_email(self.email.data)
 
         if user is None:
             self.email.errors.append('Invalid email or password')
@@ -30,7 +30,7 @@ class LoginForm(Form):
 
 
 class RegistrationForm(Form):
-    email = StringField('Name', validators=[DataRequired(), Email()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password',
                              validators=[DataRequired(), Length(min=8)])
     confirm = PasswordField('Confirm Password',

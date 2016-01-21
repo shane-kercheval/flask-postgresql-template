@@ -43,7 +43,7 @@ def login():
     if form.validate_on_submit():
         flash("login valid", category="success")
         return redirect(url_for('login'))
-    else:
+    elif request.method == 'POST':
         flash("login not valid", category="fail")
     return render_template('login.html', form=form)
 

@@ -52,7 +52,7 @@ NOTE: development was done on OS X, there may be different installations/etc. on
         heroku open
 
 =====MIGRATIONS============
-- view "heroku pg:psql --app flask-postgresql-template DATABASE"
+- view database "heroku pg:psql --app flask-postgresql-template DATABASE"
     -may have to run "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
 
 - Alembic automatically creates/tracks database migration records from the changes in the SQLAchemy models, and allows us to upgrade/downgrade to specific versions.

@@ -1,10 +1,13 @@
 {% extends 'default.html' %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('login') }}">
-    {{ form.csrf_token }}
-    {{ form.email.label }} {{ form.email(size=20) }}
-    {{ form.password.label }} {{ form.password(size=20) }}
-    <input type="submit" value="Go">
-</form>
+<div class="form">
+    <h1>Log into your account!</h1>
+    <form method="POST" action="{{ url_for('login') }}">
+        {{ form.csrf_token }}
+        {{ form.email.label }} {{ form.email() }}
+        {{ form.password.label }} {{ form.password() }}
+        <input type="submit" value="Log in">
+    </form>
+</div>
 {% endblock %}

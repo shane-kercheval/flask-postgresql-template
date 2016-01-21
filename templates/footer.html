@@ -1,3 +1,10 @@
 <footer id="footer">
-
+    <p>
+        {% if config.SITE_TWITTER_USERNAME %}
+        <a href="http://twitter/{{ config.SITE_TWITTER_USERNAME }}">@{{ config.SITE_TWITTER_USERNAME }}</a> |
+            {% endif %}
+        <a href="mailto:{{ config.SITE_EMAIL }}">{{ config.SITE_EMAIL }}</a></li>
+    </p>
+    <p>{{ config.SITE_DESCRIPTION }}</p>
+    <p id='copyright'>&copy; 2014-<script>document.write(new Date().getFullYear())</script> {{ config.SITE_OWNER }}. |  <a href="/privacy-policy/">Privacy Policy</a></p>
 </footer>
