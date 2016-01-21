@@ -32,8 +32,8 @@ def register():
     if form.validate_on_submit():
         add_to_database(User(email=form.email.data,
                              password=form.password.data))
-        flash('registered')
-        return redirect(url_for('home'))
+        flash('Welcome!', category='success')
+        return redirect(url_for('app_default'))
     return render_template('register.html', form=form)
 
 
@@ -41,11 +41,13 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        flash("login valid", category="success")
-        return redirect(url_for('login'))
-    elif request.method == 'POST':
-        flash("login not valid", category="fail")
+        return redirect(url_for('app_default'))
     return render_template('login.html', form=form)
+
+
+@app.route('/app', methods=['GET', 'POST'])
+def app_default():
+    return render_template('app.html')
 
 
 @app.errorhandler(404)

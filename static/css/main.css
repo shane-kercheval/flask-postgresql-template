@@ -16,15 +16,18 @@ body {
 	height: 80px;
 	box-sizing: border-box;
 }
-
 .flash {
     padding: 5px 10px;
     height: 25px;
     color: white;
-    background: #D74038;
+    background-color: #D74038;
     border: 1px solid white;
     display: block;
     clear: both;
+}
+
+.flash.success {
+  background-color: #00B15A;
 }
 
 .align-left {
@@ -54,7 +57,6 @@ body {
     clear: both;
     overflow: hidden;
 }
-
 .page-content h1 {
     font-weight: 300;
 }
@@ -73,31 +75,31 @@ a {
   text-align: center;
 }
 .form label {
+  margin-top: 8px;
   margin-bottom: 3px;
+  clear: left;
+  float: left;
 }
 .form input {
     display: block;
-    clear: right;
     width: calc(100% - 11px);
     height: 25px;
-    margin-bottom: 6px;
     border-radius: 3px;
     border: 1px solid #B3B3B3;
     font-size: 1em;
     padding-left: 8px;
 }
 
-.form input[type="text"], form input[type="password"]{
-
-}
-
 .form input[type="submit"] {
-  margin-top: 15px;
+  margin-top: 10px;
   height: 40px;
   width: 100%;
   font-weight: 400;
   background-color: #00B15A;
   color: white;
+}
+.form .form_field_errors{
+  margin: 0px;
 }
 /*************
 ** Footer

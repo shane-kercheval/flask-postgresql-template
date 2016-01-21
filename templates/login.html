@@ -1,12 +1,12 @@
 {% extends 'default.html' %}
 
+{% import "form.html" as form_macro %}
+
 {% block body %}
 <div class="form">
     <h1>Log into your account!</h1>
     <form method="POST" action="{{ url_for('login') }}">
-        {{ form.csrf_token }}
-        {{ form.email.label }} {{ form.email() }}
-        {{ form.password.label }} {{ form.password() }}
+        {{ form_macro.render(form) }}
         <input type="submit" value="Log in">
     </form>
 </div>
