@@ -53,6 +53,7 @@ def page_not_found(error):
     return render_template('page_not_found.html'), 404
 
 
+# COMMENT THIS CODE OUT FOR PRODUCTION, OR DON'T DISPLAY THE ERROR
 @app.errorhandler(500)
 def page_not_found(error):
     return render_template('internal_server_error.html', error=error), 500
