@@ -74,8 +74,8 @@ def load_user(userid):
     return User.get_user_by_id(userid)
 
 
-#@login_manager.unauthorized_handler
-#def unauthorized():
+# @login_manager.unauthorized_handler
+# def unauthorized():
 #    flash(message='You must be logged in to do that!', category='error')
 #    return 200
 
