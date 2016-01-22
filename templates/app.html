@@ -3,5 +3,7 @@
 {# if I want to override, e.g., the title, use: {% set title = 'index' %} #}
 
 {% block body %}
-    <h1>Logged In!</h1>
+    {% if current_user.is_authenticated %}
+        <h1>user: {{ current_user.email }}</h1>
+    {% endif %}
 {% endblock %}

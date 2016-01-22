@@ -78,6 +78,8 @@ NOTE: development was done on OS X, there may be different installations/etc. on
 =====AUTHENTICATION========
 - here are the classes we would want to implement http://flask-login.readthedocs.org/en/latest/#your-user-class
     - but flask-login gives us UserMixin which does this for us
+- I am currently enabling 'remember me' functionality by including 'remember=True' in the login_user call
+
 
 ADVANCED LOGGING
 - install 'papertrail' add-on

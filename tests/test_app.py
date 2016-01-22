@@ -26,7 +26,7 @@ class AppTest(unittest.TestCase):
     def test_pep8(self):
         """Test that we conform to PEP8."""
         pep8style = pep8.StyleGuide()
-        result = pep8style.check_files(['app.py'])
+        result = pep8style.check_files(['app.py', 'app_factory.py'])
         self.assertEqual(result.total_errors, 0, "Found code style errors (and warnings).")
 
     def test_create_user(self):
@@ -49,6 +49,17 @@ class AppTest(unittest.TestCase):
         assert user_from_db2.email == email
         assert user_from_db2.check_password("newpassword")
 
+    def test_get_user_by_id(self):
+        email = 'test_email'
+        password = 'test_password'
+        user = User(email=email, password=password)
+        add_to_database(user)
+        assert user in db.session
+
+        assert len(User.query.filter_by(id=1).all()) == 1
+        user_from_db = User.get_user_by_id(1)
+        assert user_from_db.email == email
+
     def test_user_already_exists_raises_integrity_error(self):
         add_to_database(User(email='email', password='password'))
         l = lambda: add_to_database(User(email='email', password='another'))
@@ -57,6 +68,8 @@ class AppTest(unittest.TestCase):
     def test_user_doesnt_exist_returns_none(self):
         user = User.get_user_by_email("bla")
         assert user is None
+        user2 = User.get_user_by_id(100000)
+        assert user2 is None
 
     def test_user_incorrect_password(self):
         email = 'email'
@@ -64,6 +77,7 @@ class AppTest(unittest.TestCase):
         add_to_database(User(email=email, password=password))
         user = User.get_user_by_email(email)
         assert user.password != password
+        assert not bcrypt.check_password_hash(user.password, 'temp')
         assert bcrypt.check_password_hash(user.password, password)
 
 

@@ -1,6 +1,7 @@
-from flask import flash, request, redirect, url_for
+from flask import flash, request, redirect, url_for, abort
 from flask import render_template
-from app_factory import app, db
+from flask.ext.login import login_required, login_user, logout_user
+from app_factory import app, db, login_manager
 from models import User
 from forms import LoginForm, RegistrationForm
 
@@ -30,8 +31,9 @@ def home(name="default", test="default"):
 def register():
     form = RegistrationForm(request.form)
     if form.validate_on_submit():
-        add_to_database(User(email=form.email.data,
-                             password=form.password.data))
+        user = User(email=form.email.data, password=form.password.data)
+        add_to_database(user)
+        login_user(user, remember=True)
         flash('Welcome!', category='success')
         return redirect(url_for('app_default'))
     return render_template('register.html', form=form)
@@ -41,13 +43,41 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        return redirect(url_for('app_default'))
+        user = User.get_user_by_email(form.email.data)
+        login_user(user, remember=True)
+
+        next = request.args.get('next')
+        # WE ARE CURRRENTLY ASSUMING 'next' IS VALID. IF PERMISSIONS ARE ADDED
+        # LATER, THEN WE SHOULD ADD ADDITIONAL VALIDATION
+
+        return redirect(next or url_for('app_default'))
     return render_template('login.html', form=form)
 
 
+@app.route('/logout', methods=['GET', 'POST'])
+@login_required
+def logout():
+    logout_user()
+    flash(message=u'You have logged out. Hope to see you soon!',
+          category='success')
+    return render_template('index.html')
+
+
 @app.route('/app', methods=['GET', 'POST'])
+@login_required
 def app_default():
     return render_template('app.html')
+
+
+@login_manager.user_loader
+def load_user(userid):
+    return User.get_user_by_id(userid)
+
+
+#@login_manager.unauthorized_handler
+#def unauthorized():
+#    flash(message='You must be logged in to do that!', category='error')
+#    return 200
 
 
 @app.errorhandler(404)

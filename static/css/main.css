@@ -45,18 +45,17 @@ body {
     width:33.33333%;
     text-align:right;
     cursor: pointer;
-}​
-.page-content {
+}
+#page-content {
     max-width: 95%;
     margin: 20px auto;
     display: block;
     clear: both;
     overflow: hidden;
 }
-.page-content h1 {
+#page-content h1 {
     font-weight: 300;
 }
-
 a {
 	text-decoration: none;
 }
