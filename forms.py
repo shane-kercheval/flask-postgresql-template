@@ -45,7 +45,7 @@ class RegistrationForm(Form):
         user = User.get_user_by_email(self.email.data)
 
         if user is not None:
-            self.email.errors.append('User with that name already exists')
+            self.email.errors.append('This email is already registered.')
             return False
 
         return True
