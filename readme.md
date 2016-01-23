@@ -1,19 +1,33 @@
-=====SETUP=================
-NOTE: development was done on OS X, there may be different installations/etc. on other systems
+Flask Template (Postgres & Heroku)
+==================================
 
+Note
+----
+- while this is specifically working with Postgres and running on Heroku, I assume this can run on other platforms and use other database technologies with basic modifications.
+- development was done on OS X, there may be different installations/etc. on other systems
+
+
+Getting Started
+---------------
 - download source, put in whatever git repository you set up
     - you may need to change
         - runtime.txt
         - Procfile.txt
 
+**postgres**
 - install http://postgresapp.com (OS X)
 - run "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
 - start postgresapp to make sure it works and the server starts
 - open psql from app
 - in psql terminal, create the database you want to use in the site, config defaults the db url to example_site. USE:
-        CREATE DATABASE example_site;
-        \connect example_site;
-    - defaulted DATABASE_URL os so that if none exists, it returns the above. Means it might work locally but fail when pushed to Heroku if config variable isn't set
+
+                CREATE DATABASE example_site;
+                \connect example_site;
+
+    - the DATABASE_URL value in config.py is defaulted so that if none exists, it returns 'example_site'.
+    - So, when pushed to Heroku you must install the postgres addon and set the config value (mentioned below)
+
+**venv:**
 - start venv ('source path-to-ven/bin/activate') (using os x terminal, not psql)
 - update venv to requirements using 'pip install -r requirements.txt'
     - any time you update venv via pip, save to requirements using 'pip freeze > requirements.txt'
