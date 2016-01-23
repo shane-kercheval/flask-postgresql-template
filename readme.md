@@ -27,7 +27,7 @@ Getting Started
         \connect example_site;
 
 - the DATABASE_URL value in config.py is defaulted so that if none exists, it returns 'example_site'
-- So, when pushed to Heroku you must install the postgres addon and set the config value (mentioned below)
+- So, when pushed to Heroku you must install the [postgres add-on](https://elements.heroku.com/addons/heroku-postgresql) and set the config value (mentioned below); depending on the order of steps, it's possible that Heroku auto-detects postgres and installs it for you.
 
 **venv:**
 - start venv using os x terminal
@@ -165,7 +165,8 @@ Authentication
     - but flask-login gives us [UserMixin](https://flask-login.readthedocs.org/en/latest/#flask.ext.login.UserMixin) which does this for us
     - I have not overrided the default UserMixin implementation
 - I am currently enabling 'remember me' functionality by including 'remember=True' in the login_user call, in app.py
-
+- **I don't know the specifics of HTTPS/SSL requirements, but Heroku says ['SSL Endpoint [paid add-on] is only useful for custom domains. All default appname.herokuapp.com domains are already SSL-enabled and can be accessed by using https, for example, https://appname.herokuapp.com.'](https://devcenter.heroku.com/articles/ssl-endpoint) **
+    - I assume there is a way to redirect HTTP to HTTPS if needed, but have not investigated yet
 
 Advanced Logging
 ---------------
