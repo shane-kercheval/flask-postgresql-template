@@ -3,98 +3,175 @@ Flask Template (Postgres & Heroku)
 
 Note
 ----
-- while this is specifically working with Postgres and running on Heroku, I assume this can run on other platforms and use other database technologies with basic modifications.
-- development was done on OS X, there may be different installations/etc. on other systems
-
+- while this is designed to use Postgres and run on Heroku, I assume it can run on other platforms and use other database technologies with basic modifications.
+- development was done on OS X
 
 Getting Started
 ---------------
-- download source, put in whatever git repository you set up
+- download source, commit to whatever git repository you set up (assumes GitHub)
     - you may need to change
         - runtime.txt
         - Procfile.txt
 
 **postgres**
 - install http://postgresapp.com (OS X)
-- run "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
+- run export command in terminal
+
+        export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
+
 - start postgresapp to make sure it works and the server starts
 - open psql from app
 - in psql terminal, create the database you want to use in the site, config defaults the db url to example_site. USE:
 
-                CREATE DATABASE example_site;
-                \connect example_site;
+        CREATE DATABASE example_site;
+        \connect example_site;
 
-    - the DATABASE_URL value in config.py is defaulted so that if none exists, it returns 'example_site'.
-    - So, when pushed to Heroku you must install the postgres addon and set the config value (mentioned below)
+- the DATABASE_URL value in config.py is defaulted so that if none exists, it returns 'example_site'
+- So, when pushed to Heroku you must install the postgres addon and set the config value (mentioned below)
 
 **venv:**
-- start venv ('source path-to-ven/bin/activate') (using os x terminal, not psql)
-- update venv to requirements using 'pip install -r requirements.txt'
-    - any time you update venv via pip, save to requirements using 'pip freeze > requirements.txt'
-    - if you get "Error: pg_config executable not found."
-        - run this in terminal and retry: "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
+- start venv using os x terminal
 
-- run tests locally using 'python -m unittest tests/test_app.py' in terminal
-- add data to database using 'python initialize_db.py' in terminal
-- confirm data is in database using 'select * from users;' in psql
-- run locally using 'python app.py'
-- in browser, go to 'http://127.0.0.1:5000/' ... you should see the site
+        source path-to-ven/bin/activate
 
+- update venv to requirements using
+
+        pip install -r requirements.txt
+
+- any time you update venv via pip, save to requirements using
+
+        pip freeze > requirements.txt
+
+- if you get "Error: pg_config executable not found."
+    - run this in terminal and retry: "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
+
+**running, tests, and initial data**
+- run tests locally using terminal command:
+
+        python -m unittest tests/test_app.py
+
+- add data to database using terminal command:
+
+        python initialize_db.py
+
+- confirm data is in database using following command in psql terminal window
+
+        select * from users;
+
+- run locally using terminal command:
+
+        python app.py
+
+- in browser, go to http://127.0.0.1:5000/ ... you should see the site
 - commit/push to git repository
 
-
+**heroku**
+- sign up for [heroku](https://www.heroku.com/) account
 - download/install Heroku Toolbelt: https://devcenter.heroku.com/articles/getting-started-with-python#set-up
-- log in to Heroku via toolbelt/terminal: 'heroku login'
+- log in to Heroku via toolbelt/terminal:
+
+        heroku login
+
 - create heroku app
     - terminal cd path-to-project
-    - create app: 'heroku create [app name]' e.g. 'heroku create flask-postgresql-template'
-        Heroku recognizes an app as a Python app by the existence of a requirements.txt file in the root directory. For your own apps, you can create one by running pip freeze.
-        you can use GitHub and Heroku at the same time, added the remote from the setup tutorial above doesn't overwrite git, it adds another
-- deploy code: 'git push heroku master'
-- ensure it worked: 'heroku open'
-    - this should have automatically added postgres add-in to your app, but verify on heroku dashboard
-        - Heroku automatically adds DATABASE_URL to the config settings which makes it available to os.evnironment
-- add APP_SETTINGS=config.ProductionConfig to config in Heroku
-- try running Heroku locally with "heroku local"
+    - create app command: 
+    
+        heroku create [app name] 
+        e.g. 'heroku create flask-postgresql-template'
+    
+- Heroku has an excellent ["Getting Started" Guide](https://devcenter.heroku.com/articles/getting-started-with-python#set-up).
+- Heroku recognizes the app as a Python app by the existence of a requirements.txt file in the root directory. For your own apps, you can create one by running pip freeze.
+- you can use GitHub and Heroku at the same time; adding the 'remote' from the setup tutorial above doesn't overwrite git, it adds another
+- once you have hadded 'heroku' remote, deploy code:
+
+        git push heroku master
+
+- ensure it worked:
+
+        heroku open
+
+- this should have automatically added postgres add-in to your app (Heroku auto-detects the requirement), but verify on heroku dashboard
+    - Heroku automatically adds DATABASE_URL to the config settings which makes it available to os.evnironment
+- add the following config config var to your Heroku app (either via command or heroku website)
+
+        config name: APP_SETTINGS
+        config value: config.ProductionConfig 
+
+- try running Heroku locally with 
+
+        heroku local
 
 - optionally connect heroku to github to enable automatic deployments
 
-- to run a different computer, follow same steps, then enable the deployment using "heroku git:remote -a [heroku app name]"
-    - e.g. "heroku git:remote -a flask-postgresql-template"
-    - then do:
+- to run a different computer, follow same steps, then enable the deployment using
+
+        heroku git:remote -a [heroku app name]
+        e.g. "heroku git:remote -a flask-postgresql-template"
+
+- then do:
+
         git push heroku master
         heroku open
 
-=====MIGRATIONS============
-- view database "heroku pg:psql --app flask-postgresql-template DATABASE"
-    -may have to run "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
+Migrations
+----------
+- as your database changes, you need to migrate the changes to other (e.g. production) databases
+- view remote heroku database using:
+
+        heroku pg:psql --app flask-postgresql-template DATABASE
+
+-may have to run "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin"
 
 - Alembic automatically creates/tracks database migration records from the changes in the SQLAchemy models, and allows us to upgrade/downgrade to specific versions.
-- Flask-Migrate is an extension created for SQLAlchemy that works iwht Flask Script / Alembic; MigrateCommand added to manage.py
-- "python manage.py db" - gives command options
-- "python manage.py db init" - start tracking changes
-    - creates /migrations/ folder
-- "python manage.py db migrate -m "initial migration"" - initial migration; causes Alembic to scan SQLAlchemy all table/column changes
-    - make sure to do this with an empty local database, if there are existing tables, they won't be added to the migration
+- Flask-Migrate ([official documentation](https://flask-migrate.readthedocs.org/en/latest/)) is an extension created for SQLAlchemy that works with Flask Script / Alembic; *MigrateCommand added to manage.py*
+
+- to see the migration command options, use:
+
+        python manage.py db
+
+- to start tracking database changes, use:
+
+        python manage.py db init
+
+- the previous command creates /migrations/ folder
+- create the initial migration: (causes Alembic to scan SQLAlchemy all table/column changes)
+
+        python manage.py db migrate -m "initial migration"
+
+- make sure to do this with an empty local database, if there are existing tables, they won't be added to the migration
 - to apply migration to another database, run
-    - "python manage.py db upgrade"
-- view history: "python manage.py db history"
+
+        python manage.py db upgrade
+
+- view migration history:
+
+        python manage.py db history
 
 - when switching computers, blow away the database (drop all tables) and do 'upgrade' and then 'migrate'
 
-- push db provisions to heroku: "heroku run python manage.py migrate"
-"heroku run python manage.py db upgrade --app [APP]"
-"heroku run python manage.py db upgrade --app flask-postgresql-template"
-    - MAKE SURE ALL MIGRATIONS ARE PUSHED TO REMOTE BEFORE RUNNING, THIS RUNS OFF OF REMOTE SOURCES
-===========================
-- need to store passwords as LargeBinary. Seems unique to Postgres
--
-=====AUTHENTICATION========
-- here are the classes we would want to implement http://flask-login.readthedocs.org/en/latest/#your-user-class
-    - but flask-login gives us UserMixin which does this for us
-- I am currently enabling 'remember me' functionality by including 'remember=True' in the login_user call
+- push db provisions to heroku, using:
+
+        heroku run python manage.py db upgrade --app [APP]
+        e.g. heroku run python manage.py db upgrade --app flask-postgresql-template
+
+-**MAKE SURE ALL MIGRATIONS/CODE-CHANGES ARE PUSHED TO REMOTE BEFORE RUNNING, THIS RUNS OFF OF REMOTE SOURCES**
 
 
-ADVANCED LOGGING
+Authentication
+--------------
+- user authentication (login/register) is implemented using flask-login
+    - documentation: https://flask-login.readthedocs.org/en/latest/
+- technically, the classes we would want to [implement a few required methods and properties](http://flask-login.readthedocs.org/en/latest/#your-user-class)
+    - but flask-login gives us [UserMixin](https://flask-login.readthedocs.org/en/latest/#flask.ext.login.UserMixin) which does this for us
+    - I have not overrided the default UserMixin implementation
+- I am currently enabling 'remember me' functionality by including 'remember=True' in the login_user call, in app.py
+
+
+Advanced Logging
+---------------
 - install 'papertrail' add-on
 - open the heroku dashboard - "heroku addons:open papertrail"
+
+MISC Notes
+----------
+- in models.py, we need to store passwords as LargeBinary. Seems unique to Postgres. 
