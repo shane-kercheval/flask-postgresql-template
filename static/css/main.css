@@ -112,7 +112,7 @@ a {
     font-size: 0.9em;
     text-align: center;
     /*color: #828282;*/
-    background-color: #F8F8F8;
+    background-color: white;/*#F8F8F8;*/
 }
 #copyright {
   text-align: center;
