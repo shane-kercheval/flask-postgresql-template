@@ -3,7 +3,9 @@
 {# if I want to override, e.g., the title, use: {% set title = 'index' %} #}
 
 {% block body %}
-    <h1>Test!4! {{ config.SITE_NAME }}</h1>
-    <a href="{{ url_for('login') }}">log in</a><br>
-    <a href="{{ url_for('register') }}">register</a>
+    <h1>A Flask/Postgres/Heroku Template</h1>
+    <p>This site is built with Flask, hosted on Heroku, and utilizes the <a href="https://elements.heroku.com/addons/heroku-postgresql">Postgres add-in</a>.</p>
+    <p>I assume with minor changes, the database technology and hosting platform can be changed.</p>
+    <p>See the <a href="https://github.com/shane-kercheval/flask-postgresql-template" target="_blank">GitHub repository</a> for more information.</p>
+    <p>Follow me on <a href="https://twitter.com/ShaneKercheval" target="_blank">twitter</a> or <a href="https://github.com/shane-kercheval" target="_blank">GitHub</a>, or check out my <a href="http://shanekercheval.me" target="_blank">personal website</a>.</p>
 {% endblock %}

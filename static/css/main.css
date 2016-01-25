@@ -58,7 +58,13 @@ body {
 }
 a {
 	text-decoration: none;
+	color: #82C74C;
 }
+a:visited {
+	color: #82C74C;
+}
+
+
 /*************
 ** Forms
 **************/

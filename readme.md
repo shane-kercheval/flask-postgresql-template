@@ -1,6 +1,8 @@
 Flask Template (Postgres & Heroku)
 ==================================
 
+this app is currently deployed at: https://flask-postgresql-template.herokuapp.com/
+
 Note
 ----
 - while this is designed to use Postgres and run on Heroku, I assume it can run on other platforms and use other database technologies with basic modifications.
@@ -37,6 +39,10 @@ Getting Started
 - update venv to requirements using
 
         pip install -r requirements.txt
+        
+- if you get this error (""python setup.py egg_info" failed with error code 1"), then run this command in terminal
+
+        export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 
 - any time you update venv via pip, save to requirements using
 
