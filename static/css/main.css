@@ -1,50 +1,13 @@
 body {
-    font-family: "Open Sans", Arial, sans-serif
+    font-family: "Open Sans", Arial, sans-serif;
+    margin:0;
 }
-
-#body
-{
-	margin:0;
-}
-
 #header
 {
-	padding-top: 25px;
     /* background-image: radial-gradient(circle at center, #262626, #3A3A3A);*/
-	background-color: #262626; /*#5F5F5F*/
+  	background-color: #262626; /*#5F5F5F*/
     padding: 20px 40px;
-	height: 80px;
-	box-sizing: border-box;
-}
-.flash {
-    padding: 5px 10px;
-    height: 25px;
-    color: white;
-    background-color: #D74038;
-    border: 1px solid white;
-    display: block;
-    clear: both;
-}
-
-.flash.success {
-  background-color: #00B15A;
-}
-
-.align-left {
-    float: left;
-    width:33.33333%;
-    text-align:left;
-}
-.align-center {
-    float: left;
-    width:33.33333%;
-    text-align:center;
-}
-.align-right {
-    float: left;
-    width:33.33333%;
-    text-align:right;
-    cursor: pointer;
+    overflow: hidden;
 }
 #page-content {
     max-width: 95%;
@@ -63,23 +26,52 @@ a {
 a:visited {
 	color: #82C74C;
 }
-
-
 /*************
-** Forms
+** FLASH
+**************/
+.flash {
+    padding: 5px 10px;
+    height: 25px;
+    color: white;
+    background-color: #D74038;
+    border: 1px solid white;
+    display: block;
+    clear: both;
+}
+.flash.success {
+    background-color: #00B15A;
+}
+.align-left {
+    float: left;
+    width:15%;
+    text-align:left;
+}
+.align-center {
+    float: left;
+    width:70%;
+    text-align:center;
+}
+.align-right {
+    float: left;
+    width:15%;
+    text-align:right;
+    cursor: pointer;
+}
+/*************
+** FORMS
 **************/
 .form {
-    margin: 100px auto;
-    width: 400px;
+    width: 95%;
+    margin: 0 auto;
 }
 .form h1 {
-  text-align: center;
+    text-align: center;
 }
 .form label {
-  margin-top: 8px;
-  margin-bottom: 3px;
-  clear: left;
-  float: left;
+    margin-top: 8px;
+    margin-bottom: 3px;
+    clear: left;
+    float: left;
 }
 .form input {
     display: block;
@@ -92,23 +84,23 @@ a:visited {
 }
 
 .form input[type="submit"] {
-  margin-top: 10px;
-  height: 50px;
-  width: 100%;
-  font-weight: 400;
-  background-color: #82C74C;
-  color: white;
-  cursor: pointer;
+    margin-top: 10px;
+    height: 50px;
+    width: 100%;
+    font-weight: 400;
+    background-color: #82C74C;
+    color: white;
+    cursor: pointer;
 }
 .form input[type="submit"]:hover {
-  transition: background-color 0.5s ease;
-  background-color: #00A400;
+    transition: background-color 0.5s ease;
+    background-color: #00A400;
 }
 .form .form_field_errors{
-  margin: 0px;
+    margin: 0px;
 }
 /*************
-** Footer
+** FOOTER
 **************/
 #footer
 {
@@ -117,67 +109,64 @@ a:visited {
     padding: 60px 0;
     font-size: 0.9em;
     text-align: center;
-    /*color: #828282;*/
-    background-color: white;/*#F8F8F8;*/
+    color: #828282;
+
 }
 #copyright {
-  text-align: center;
-  font-size: 0.8em;
+    text-align: center;
+    font-size: 0.8em;
 }
-/********HEADER*********/
+/*************
+** HEADER
+**************/
 #header h1{
-	float: left;
+	clear: both;
 	line-height: 40px;
 	margin: 0;
 	font-weight: 500;
 }
-#header nav {
+#header div {
 	line-height: 40px;
-	float: left;
-	margin: 0 0 0 60px;
-	padding: 0;
+  text-align: center;
 }
-#header nav a{
+#header div a{
     color: white;
 	display: inline-block;
 	padding: 0 5px;
 	line-height: 1;
 }
 #header a:hover {
-  color: #82C74C;
+    color: #82C74C;
 }
-#header nav a.selected {
+#header div a.selected {
 	color: #82C74C;
 }
-#header ul {
-    color: black;
-	list-style: none;
-	line-height: 1;
-	float: right;
-}
-#header ul a{
-    color: white;
-}
-#header h1 a{
-    color: white;
-}
-#header ul li {
-	display: inline-block;
-	margin-left: 15px;
-	opacity:0.9;
-	color: white;
-}
-#header ul li:last-child a {
+#header .main_link {
 	font-weight: bold;
 	padding: 10px 15px;
 	border-radius: 3px;
 	border: 2px solid white;
+    margin-left: 15px;
 }
-#header ul li:last-child a:hover{
-  border-color: #82C74C;
+#header .main_link:hover {
+    border-color: #82C74C;
 }
-
-
-@media all and (max-width: 600px) {
-
+/*************
+** RESPONSIVE > 600PX
+**************/
+@media all and (min-width: 600px) {
+    #header h1{
+        float: left;
+    }
+    #header #navigation_links{
+        float: left;
+        margin-left: 30px;
+    }
+    #header #navigation_auth{
+        float: right;
+    }
+    .form {
+        margin: 100px auto;
+        width: 400px;
+    }
 }
