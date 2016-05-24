@@ -1,13 +1,31 @@
 {% extends 'default.html' %}
 
-{% import "form.html" as form_macro %}
+{#<!--{% import "form.html" as form_macro %}-->#}
 
 {% block body %}
 <div class="form">
     <h1>Sign up for an account!</h1>
-    <form method="POST" action="{{ url_for('register') }}">
+    <div id="root" style="width: 280px; padding: 10px;">
+    embeded area
+    </div>
+    <script src="https://cdn.auth0.com/js/lock-9.1.min.js"></script>
+    <script>
+
+      var lock = new Auth0Lock('hO6bZXZPPPCnLpDuuHObEnpbeAOtQWVO', 'shane.auth0.com');
+
+
+      lock.show({
+          container: 'root'
+        , callbackURL: 'http://{{request.host}}/callback'
+        , responseType: 'code'
+        , authParams: {
+          scope: 'openid email'  // Learn about scopes: https://auth0.com/docs/scopes
+        }
+      });
+    </script>
+    {#<!--    <form method="POST" action="{{ url_for('register') }}">
         {{ form_macro.render(form) }}
         <input type="submit" value="Sign Up">
-    </form>
+    </form>-->#}
 </div>
 {% endblock %}

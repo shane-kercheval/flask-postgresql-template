@@ -7,7 +7,7 @@
     </div>
 
     <div id="navigation_auth">
-        {% if current_user.is_authenticated %}
+        {% if session["profile"] %}
             <a href="{{ url_for('logout') }}">Logout</a>
         {% else %}
             <a href="{{ url_for('login') }}">Login</a>

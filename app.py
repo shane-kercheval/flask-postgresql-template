@@ -1,10 +1,15 @@
+import os
+import json
+import requests
+from functools import wraps # added for Auth0
+
+from flask import Flask, request, jsonify, session, redirect, render_template, send_from_directory
 from flask import flash, request, redirect, url_for, abort
 from flask import render_template
-from flask.ext.login import login_required, login_user, logout_user
+#from flask.ext.login import login_required, login_user, logout_user
 from app_factory import app, db, login_manager
 from models import User
 from forms import LoginForm, RegistrationForm
-
 
 @app.before_request
 def before_request():
@@ -21,6 +26,48 @@ def after_request(response):
     # g.db.close()
     return response
 
+# added for auth0
+def requires_auth(f):
+  @wraps(f)
+  def decorated(*args, **kwargs):
+    if 'profile' not in session:
+      # Redirect to Login page here
+      return redirect('/login')
+    return f(*args, **kwargs)
+
+  return decorated
+
+# Here we're using the /callback route.
+@app.route('/callback', methods=['GET', 'POST'])
+def callback_handling():
+  env = os.environ
+  code = request.args.get('code')
+
+  json_header = {'content-type': 'application/json'}
+
+  token_url = "https://{domain}/oauth/token".format(domain='shane.auth0.com')
+
+  token_payload = {
+    'client_id':     'hO6bZXZPPPCnLpDuuHObEnpbeAOtQWVO',
+    'client_secret': '4VNtXa3X6gyB4jOLheWt21dYsVEjySx77TqvumQq8i86pFWEfUhqt2voQGqCqGbD',
+    'redirect_uri':  'http://{your_domain}/callback'.format(your_domain=request.headers['Host']),
+    'code':          code,
+    'grant_type':    'authorization_code'
+  }
+
+  token_info = requests.post(token_url, data=json.dumps(token_payload), headers = json_header).json()
+
+  user_url = "http://{domain}/userinfo?access_token={access_token}" \
+      .format(domain='shane.auth0.com', access_token=token_info['access_token'])
+
+  user_info = requests.get(user_url).json()
+
+  # We're saving all user information into the session
+  session['profile'] = user_info
+
+  # Redirect to the User logged in page that you want here
+  # In our case it's /dashboard
+  return redirect('/app')
 
 @app.route('/')
 def home(name="default", test="default"):
@@ -29,49 +76,56 @@ def home(name="default", test="default"):
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    form = RegistrationForm(request.form)
-    if form.validate_on_submit():
-        user = User(email=form.email.data, password=form.password.data)
-        add_to_database(user)
-        login_user(user, remember=True)
-        flash('Welcome!', category='success')
-        return redirect(url_for('app_default'))
-    return render_template('register.html', form=form)
+#     form = RegistrationForm(request.form)
+#     if form.validate_on_submit():
+#         user = User(email=form.email.data, password=form.password.data)
+#         add_to_database(user)
+#         login_user(user, remember=True)
+#         flash('Welcome!', category='success')
+#         return redirect(url_for('app_default'))
+     return render_template('register.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.get_user_by_email(form.email.data)
-        login_user(user, remember=True)
-
-        next = request.args.get('next')
-        # WE ARE CURRRENTLY ASSUMING 'next' IS VALID. IF PERMISSIONS ARE ADDED
-        # LATER, THEN WE SHOULD ADD ADDITIONAL VALIDATION
-
-        return redirect(next or url_for('app_default'))
-    return render_template('login.html', form=form)
+#     form = LoginForm()
+#     if form.validate_on_submit():
+#         user = User.get_user_by_email(form.email.data)
+#         login_user(user, remember=True)
+#
+#         next = request.args.get('next')
+#         # WE ARE CURRRENTLY ASSUMING 'next' IS VALID. IF PERMISSIONS ARE ADDED
+#         # LATER, THEN WE SHOULD ADD ADDITIONAL VALIDATION
+#
+#         return redirect(next or url_for('app_default'))
+    return render_template('login.html')
 
 
 @app.route('/logout', methods=['GET', 'POST'])
-@login_required
 def logout():
-    logout_user()
+    session.clear()
     flash(message=u'You have logged out. Hope to see you soon!',
           category='success')
     return render_template('index.html')
 
+# @login_required
+# def logout():
+#     logout_user()
+#     flash(message=u'You have logged out. Hope to see you soon!',
+#           category='success')
+#     return render_template('index.html')
+
 
 @app.route('/app', methods=['GET', 'POST'])
-@login_required
+@requires_auth
+#@login_required - removed for auth0
 def app_default():
     return render_template('app.html')
 
 
-@login_manager.user_loader
-def load_user(userid):
-    return User.get_user_by_id(userid)
+# @login_manager.user_loader
+# def load_user(userid):
+#      return User.get_user_by_id(userid) - removed for auth0
 
 
 # @login_manager.unauthorized_handler
@@ -98,6 +152,7 @@ def add_to_database(object):
 if __name__ == '__main__':
     print("DATABASE_URL: "+app.config['SQLALCHEMY_DATABASE_URI'])
     print("DEBUG: "+str(app.config['DEBUG']))
+
     app.run()
 """
 When the Python interpreter reads a source file, it executes all of the code

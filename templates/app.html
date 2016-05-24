@@ -3,7 +3,7 @@
 {# if I want to override, e.g., the title, use: {% set title = 'index' %} #}
 
 {% block body %}
-    {% if current_user.is_authenticated %}
-        <h1>user: {{ current_user.email }}</h1>
-    {% endif %}
+    <h1>APP</h1>
+        <p>user profile info from session (i.e. OAuth response):</p>
+        <p>user: {{ session["profile"] }}</p>
 {% endblock %}

@@ -75,6 +75,16 @@ Getting Started
 - in browser, go to http://127.0.0.1:5000/ ... you should see the site
 - commit/push to git repository
 
+**Auth0**
+- basic support for Auth0 was added. It is not setup for https (i.e. all redirects/etc. are hardcoded to http, just change to https when needed
+- code added was:
+    - app.py
+        - callback_handling()
+    - login.html
+        - div id="root"
+        - scripts
+    -
+
 **heroku**
 - sign up for [heroku](https://www.heroku.com/) account
 - download/install Heroku Toolbelt: https://devcenter.heroku.com/articles/getting-started-with-python#set-up
