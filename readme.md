@@ -55,7 +55,9 @@ Getting Started
 - run tests locally using terminal command:
 
         python -m unittest tests/test_app.py
+    
     or run all tests with:
+    
         python -m unittest discover ./tests
 
 - add data to database using terminal command:
