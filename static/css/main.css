@@ -159,6 +159,11 @@ a:visited {
 #navbar .main_link:hover {
     border-color: #82C74C;
 }
+#root {
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: content-box;
+}
 /*************
 ** column
 **************/
