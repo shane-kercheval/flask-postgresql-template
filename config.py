@@ -6,7 +6,7 @@ class Config(object):
 
 class SiteConfig:
     # these config values are used in the templates (e.g. open graph, twitter)
-    SITE_NAME = "Flask Template"
+    SITE_NAME = "Example Website"
     SITE_DESCRIPTION = "This site is a flask template designed for postgres/heroku."
     SITE_KEYWORDS = "flask, postgres, heroku"
     SITE_OWNER = "SHANE KERCHEVAL"
